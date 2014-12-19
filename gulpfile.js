@@ -10,20 +10,20 @@ var uglify       = require('gulp-uglify');
 var cssmin       = require('gulp-cssmin');
 var imgmin       = require('gulp-imagemin');
 var svgmin       = require('gulp-svgmin');
+var rename       = require('gulp-rename');
 var remember     = require('gulp-remember');
-var browserify   = require('gulp-browserify');
+var browserify   = require('browserify');
 var autoprefixer = require('gulp-autoprefixer');
+var transform    = require('vinyl-transform');
 var cmq          = require('gulp-combine-media-queries');
-var browserSync  = require('browser-sync');
+// var browserSync  = require('browser-sync');
 
 // Globs
 var source = {
       svg: ['public/assets/img/**/*.svg'],
       sass: ['public/assets/scss/**/*.scss'],
-      html: ['public/app/**/*.html'],
-      bower: ['public/assets/lib/'],
       images: ['public/assets/img/**/*.+(png|jpg|gif)'],
-      scripts: ['public/app/app.js']
+      scripts: ['public/assets/js/**/*.js']
     },
     destination = {
       css: 'public/dist/css',
@@ -32,14 +32,14 @@ var source = {
     };
 
 // Initialize Browser Sync
-gulp.task('browser-sync', function () {
-  if(!argv.production) {
-    browserSync({
-      port: 3000,
-      proxy: '127.0.0.1:1337'
-    });
-  }
-});
+// gulp.task('browser-sync', function () {
+//   if(!argv.production) {
+//     browserSync({
+//       port: 3000,
+//       proxy: '127.0.0.1:1337'
+//     });
+//   }
+// });
 
 // Compile sass
 gulp.task('sass', function () {
@@ -56,16 +56,8 @@ gulp.task('sass', function () {
       .pipe(cmq({log:true}))
       .pipe(gulpif(argv.production, cssmin()))
       .pipe(gulp.dest(destination.css))
-      .pipe(gulpif(!argv.production, browserSync.reload({stream:true})))
+      // .pipe(gulpif(!argv.production, browserSync.reload({stream:true})))
     .pipe(remember('sass'));
-});
-
-// reload on html changes
-gulp.task('html', function () {
-  return gulp.src(source.html)
-    .pipe(cache('html'))
-      .pipe(gulpif(!argv.production, browserSync.reload({stream:true})))
-    .pipe(remember('html'));
 });
 
 // Minify and package images and svg
@@ -74,7 +66,7 @@ gulp.task('images', function () {
   gulp.src(source.images)
     .pipe(imgmin({ optimizationLevel: 3, progressive: true, interlaced: true }))
     .pipe(gulp.dest(destination.images))
-    .pipe(gulpif(!argv.production, browserSync.reload({stream:true})));
+    // .pipe(gulpif(!argv.production, browserSync.reload({stream:true})));
   
   // Minify SVG
   gulp.src(source.svg)
@@ -84,38 +76,37 @@ gulp.task('images', function () {
       { removeHiddenElems: { circleR0: false } }
     ]))
     .pipe(gulp.dest(destination.images))
-    .pipe(gulpif(!argv.production, browserSync.reload({ stream:true })));
+    // .pipe(gulpif(!argv.production, browserSync.reload({ stream:true })));
 });
 
-// Uglify and concat all sciprts
+
 gulp.task('scripts', function () {
-  return gulp.src(source.scripts)
-    .pipe(cache('scripts'))
-      .pipe(browserify({
-        insertGlobals : true,
-        debug : !gulp.env.production
-      }))
-      .pipe(gulpif(argv.production, uglify()))
-      .pipe(gulpif(!argv.production, browserSync.reload({ stream:true, once: true })))
-    .pipe(remember('scripts'))
-    .pipe(gulp.dest(destination.scripts));
+  var browserified = transform(function(filename) {
+    var b = browserify(filename);
+    return b.bundle();
+  });
+  return gulp.src(['./public/assets/js/app.js']) 
+    .pipe(browserified)
+    .pipe(gulpif(argv.production, uglify()))
+    .pipe(rename({ suffix: '.min' }))
+    // .pipe(gulpif(!argv.production, browserSync.reload({ stream:true, once: true })))
+    .pipe(gulp.dest('./dist'));
 });
+
+
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
   gulp.watch(source.sass, ['sass']);
-  gulp.watch(source.bower, ['libs']);
   gulp.watch([source.svg, source.images], ['images']);
-  gulp.watch(source.html, ['html']);
   gulp.watch(source.scripts, ['scripts']);
 });
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', [
   'sass',
-  'html',
   'images',
   'scripts',
-  'browser-sync',
+  // 'browser-sync',
   'watch'
 ]);
