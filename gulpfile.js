@@ -90,7 +90,7 @@ gulp.task('scripts', function () {
     .pipe(gulpif(argv.production, uglify()))
     .pipe(rename({ suffix: '.min' }))
     // .pipe(gulpif(!argv.production, browserSync.reload({ stream:true, once: true })))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest(destination.scripts));
 });
 
 

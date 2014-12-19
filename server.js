@@ -33,7 +33,7 @@ app.get('/', function (req, res) {
 });
 
 // Socket connection
-var chatio = io.of('/chat'); // To prevent collision with browser-sync
+var chatio = io.of('/chatio'); // To prevent collision with browser-sync
 chatio.on('connection', function (socket){
   console.log('a user connected');
   socket.on('disconnect', function(){
