@@ -65,7 +65,7 @@ gulp.task('images', function () {
   // Minify Images
   gulp.src(source.images)
     .pipe(imgmin({ optimizationLevel: 3, progressive: true, interlaced: true }))
-    .pipe(gulp.dest(destination.images))
+    .pipe(gulp.dest(destination.images));
     // .pipe(gulpif(!argv.production, browserSync.reload({stream:true})));
   
   // Minify SVG
@@ -75,7 +75,7 @@ gulp.task('images', function () {
       { removeComments: false },
       { removeHiddenElems: { circleR0: false } }
     ]))
-    .pipe(gulp.dest(destination.images))
+    .pipe(gulp.dest(destination.images));
     // .pipe(gulpif(!argv.production, browserSync.reload({ stream:true })));
 });
 
