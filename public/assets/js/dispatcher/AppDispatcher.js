@@ -5,7 +5,7 @@
  */
 
 var Dispatcher = require('flux').Dispatcher;
-var ChatConstants = require('./constants/ChatConstants');
+var ChatConstants = require('../constants/ChatConstants');
 var assign = require('object-assign');
 
 var PayloadSources = ChatConstants.PayloadSources;
