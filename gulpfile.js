@@ -12,6 +12,7 @@ var imgmin       = require('gulp-imagemin');
 var svgmin       = require('gulp-svgmin');
 var rename       = require('gulp-rename');
 var remember     = require('gulp-remember');
+var reactify     = require('reactify');
 var browserify   = require('browserify');
 var autoprefixer = require('gulp-autoprefixer');
 var transform    = require('vinyl-transform');
@@ -82,13 +83,17 @@ gulp.task('images', function () {
 
 gulp.task('scripts', function () {
   var browserified = transform(function(filename) {
-    var b = browserify(filename);
+    var b = browserify({
+      entries: [filename],
+      transform: [reactify],
+      debug: true
+    });
     return b.bundle();
   });
   return gulp.src(['./public/assets/js/app.js']) 
     .pipe(browserified)
     .pipe(gulpif(argv.production, uglify()))
-    .pipe(rename({ suffix: '.min' }))
+    .pipe(rename({ suffix: '.min', extname: '.js' }))
     // .pipe(gulpif(!argv.production, browserSync.reload({ stream:true, once: true })))
     .pipe(gulp.dest(destination.scripts));
 });
