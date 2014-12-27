@@ -1,8 +1,10 @@
 var React = require('react');
 
-var Channels = React.createClass({
+var UsersOnline = React.createClass({
   getInitialState: function () {
-    quantity: 10
+    return {
+      quantity: 10
+    }
   },
   render: function () {
     return (
@@ -14,3 +16,5 @@ var Channels = React.createClass({
     );
   }
 });
+
+module.exports = UsersOnline;

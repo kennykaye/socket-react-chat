@@ -9,3 +9,5 @@ var Sidebar = React.createClass({
     );
   }
 });
+
+module.exports = Sidebar;

@@ -1,7 +1,7 @@
 var React = require('react');
 var UsersOnline = require('./UsersOnline.react');
 
-var Channels = React.createClass({
+var ChannelHeader = React.createClass({
   render: function () {
     return (
       <div className='channel-header'>
@@ -12,3 +12,5 @@ var Channels = React.createClass({
     );
   }
 });
+
+module.exports = ChannelHeader;
