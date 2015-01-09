@@ -2,6 +2,8 @@ module.exports = {
 
   ActionTypes: {
     CREATE_MESSAGE: 'CREATE_MESSAGE',
+    RECEIVE_MESSAGE: 'RECEIVE_MESSAGE',
+    RECEIVE_ALL_MESSAGE: 'RECEIVE_ALL_MESSAGE'
   },
 
   PayloadSources: {

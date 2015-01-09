@@ -30,7 +30,7 @@ var MessageComposer = React.createClass({
       event.preventDefault();
       var text = this.state.text.trim();
       if (text) {
-        gMessageActionCreators.createMessage(text);
+        MessageActionCreators.createMessage(text);
       }
       this.setState({text: ''});
     }

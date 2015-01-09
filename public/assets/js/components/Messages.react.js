@@ -1,17 +1,63 @@
 var React = require('react');
 var ChannelHeader = require('./ChannelHeader.react');
-var MessagesList = require('./MessagesList.react');
+var ChannelStore = require('../stores/ChannelStore');
+var MessageStore = require('../stores/MessageStore');
+var MessageListItem = require('./MessageListItem.react');
 var MessageComposer = require('./MessageComposer.react');
 
+function getStateFromStores() {
+  return {
+    messages: MessageStore.getAllForChannel('t_0'),
+    channel: 't_0'
+    // channel: ChannelStore.getCurrent()
+  };
+}
+
+
+function getMessageListItem(message) {
+  return (
+    <MessageListItem
+      message={message}
+    />
+  );
+}
+
 var Messages = React.createClass({
+  
+  getInitialState: function() {
+    return {
+      messages: []
+    };
+  },
+
+  componentDidMount: function() {
+    MessageStore.addChangeListener(this._onChange);
+    ChannelStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function() {
+    MessageStore.removeChangeListener(this._onChange);
+    ChannelStore.removeChangeListener(this._onChange);
+  },
+
   render: function () {
+    var messageListItems =this.state.messages.map(getMessageListItem);
     return (
       <div className='messages'>
         <ChannelHeader />
-        <MessagesList />
+        <ul className='message-list'>
+          {messageListItems}
+        </ul>
         <MessageComposer />
       </div>
     );
+  },
+
+  /**
+   * Event handler for 'change' events coming from the MessageStore
+   */
+  _onChange: function() {
+    this.setState(getStateFromStores());
   }
 });
 

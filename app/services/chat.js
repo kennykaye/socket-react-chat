@@ -8,9 +8,9 @@ module.exports = function (server) {
       console.log('user disconnected');
     });
 
-    socket.on('chat message', function(msg){
-      console.log('message: ' + msg);
-      chat.emit('chat message', msg);
+    socket.on('chat message', function(message){
+      console.log(message.authorName + ' says: ' + message.text);
+      chat.emit('chat message', message);
     });
   });
 };
