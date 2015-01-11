@@ -32,12 +32,10 @@ var Messages = React.createClass({
 
   componentDidMount: function() {
     MessageStore.addChangeListener(this._onChange);
-    ChannelStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
     MessageStore.removeChangeListener(this._onChange);
-    ChannelStore.removeChangeListener(this._onChange);
   },
 
   render: function () {

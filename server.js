@@ -1,3 +1,5 @@
+// TODO: Remove cruft. E.g: passport, controllers, models, most routes, etc.
+
 var fs       = require('fs');
 var morgan   = require('morgan');
 var express  = require('express');

@@ -2,12 +2,32 @@ var socket = require('socket.io-client');
 var ServerActionCreators = require('../actions/ServerActionCreators');
 var io = socket('/chat');
 
+// When server emits a login event for current user.
+io.on('user login', function(numUsers) {
+  ServerActionCreators.userLogin(numUsers);
+});
+
+// When server emits that a new message has been sent.
 io.on('chat message', function (message) {
-  console.log(message.authorName + ' says: ' + message.text);
   ServerActionCreators.receiveMessage(message);
 });
 
+// When server emits that another person has joined.
+io.on('user joined', function (user) {
+  ServerActionCreators.userJoined(user);
+});
+
+// When server emits that another person has left.
+io.on('user left', function (user) {
+  ServerActionCreators.userLeft(user);
+});
+
 module.exports = {
+
+  createUser: function (userName) {
+    io.emit('add user', userName);
+  },
+
   createMessage: function (message, channelName) {
     var timestamp = Date.now();
     var createdMessage = {
