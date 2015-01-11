@@ -1,8 +1,10 @@
+var path = require('path');
+
 module.exports = function (app) {
   
   // Login
   app.get('/login', function (req, res) {
-    res.sendFile(__dirname + '/public/login.html');
+    res.sendFile(path.resolve(__dirname, '../../public/login.html'));
   });
 
   // Logout
