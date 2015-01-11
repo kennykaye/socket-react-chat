@@ -8,7 +8,7 @@ var ActionTypes = ChatConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _currentUser,
-    _numUsers,
+    _numUsers = 0,
     _users = [];
 
 /**

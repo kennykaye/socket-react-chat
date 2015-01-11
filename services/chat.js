@@ -1,6 +1,17 @@
+/**
+ * Chat socket.io application
+ *
+ * @author Kenny Kaye <kenny@kaye.us>
+ */
+
 var avatar = require('./avatar');
 
-module.exports = function (server) {
+/**
+ * Chat service, exported by module
+ * @param  {Http} server Http server instance
+ * @return {Null}
+ */
+var chatApp = function (server) {
   var io = require('socket.io').listen(server);
   var chat = io.of('/chat');
 
@@ -44,3 +55,5 @@ module.exports = function (server) {
     });
   });
 };
+
+module.exports = chatApp;
