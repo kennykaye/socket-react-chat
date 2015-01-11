@@ -1,4 +1,4 @@
-// use these avatars: http://avatars.adorable.io/#demo
+var avatar = require('./avatar');
 
 module.exports = function (server) {
   var io = require('socket.io').listen(server);
@@ -13,18 +13,18 @@ module.exports = function (server) {
     socket.on('add user', function (username) {
       numUsers++;
       loggedIn = true;
-      socket.username = username;
+      socket.user = {
+        id: 'u_' + Date.now(),
+        avatar: avatar.getAvatar(username),
+        username: username,
+        numUsers: numUsers
+      };
 
       // Emit total number of users to current user.
-      socket.emit('user login', {
-        numUsers: numUsers
-      });
+      socket.emit('user login', socket.user);
 
       // Broadcast to all other users that a user has joined.
-      socket.broadcast.emit('user joined', {
-        username: socket.username,
-        numUsers: numUsers
-      });
+      socket.broadcast.emit('user joined', socket.user);
     });
 
     // When user disconnects.
@@ -33,10 +33,7 @@ module.exports = function (server) {
         numUsers--;
 
         // Broadcast to other all users that a user has joined.
-        socket.broadcast.emit('user left', {
-          username: socket.username,
-          numUsers: numUsers
-        });
+        socket.broadcast.emit('user left', socket.user);
       }
     });
 

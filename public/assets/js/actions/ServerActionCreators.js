@@ -28,10 +28,10 @@ module.exports = {
     });
   },
 
-  userLogin: function (numUsers) {
+  userLogin: function (user) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.USER_LOGIN,
-      numUsers: numUsers
+      user: user
     });
   },
 
