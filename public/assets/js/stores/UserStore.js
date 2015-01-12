@@ -48,7 +48,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
   }
 });
 
-UserStore.dispatchToken = AppDispather.register(function(payload) {
+UserStore.dispatchToken = AppDispather.register(function (payload) {
   var action = payload.action,
       userPayload = action.userPayload
 
