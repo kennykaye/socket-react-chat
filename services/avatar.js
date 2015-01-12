@@ -5,5 +5,5 @@
  * @return {String}             Url for avatar.
  */
 module.exports.getAvatar = function (identifier, size) {
-  return 'http://api.adorable.io/avatar/' + (size || 285) + '/' + identifier + '.png';
+  return 'http://api.adorable.io/avatars/' + (size || 285) + '/' + identifier + '.png';
 }
