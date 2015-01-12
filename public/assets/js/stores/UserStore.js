@@ -8,16 +8,8 @@ var ActionTypes = ChatConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _currentUser,
-    _numUsers = 0,
+    _totalOnline = 0,
     _users = [];
-
-/**
- * Add user to array of current users.
- * @param {Object} user User server payload.
- */
-function addUser (user) {
-  _users.push(UserStore.getUserData(user));
-}
 
 var UserStore = assign({}, EventEmitter.prototype, {
 
@@ -52,42 +44,24 @@ var UserStore = assign({}, EventEmitter.prototype, {
    * @return {Integer} How many users
    */
   getUserCount: function () {
-    return _numUsers;
-  },
-
-  /**
-   * Get relevent user data from payload
-   * @return {Object} Formatted user data
-   */
-  getUserData: function (user) {
-    return {
-      id: user.id,
-      avatar: user.avatar,
-      username: user.username
-    }
+    return _totalOnline;
   }
 });
 
 UserStore.dispatchToken = AppDispather.register(function(payload) {
-  var action = payload.action;
+  var action = payload.action,
+      userPayload = action.userPayload
 
   switch(action.type) {
 
     case ActionTypes.CREATE_USER:
-      // Fires when user is newly created, but not logged in.
-      // UserStore.emitChange();
       break;
 
     case ActionTypes.USER_JOIN:
-    case ActionTypes.USER_LOGIN:
-      addUser(action.user);
-      _numUsers = action.user.numUsers;
-      UserStore.emitChange();
-      break;
-
     case ActionTypes.USER_LEAVE:
-      _numUsers = action.user.numUsers;
-      _users.splice(_.findIndex({'id': action.user.id}));
+    case ActionTypes.USER_LOGIN:
+      _totalOnline = userPayload.totalOnline;
+      _users = userPayload.onlineUsers;
       UserStore.emitChange();
       break;
 
