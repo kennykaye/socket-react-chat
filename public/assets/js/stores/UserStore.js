@@ -48,6 +48,14 @@ var UserStore = assign({}, EventEmitter.prototype, {
   },
 
   /**
+   * Get current user.
+   * @return {Object} User
+   */
+  getCurrentUser: function () {
+    return _currentUser;
+  },
+
+  /**
    * Gets total online user count
    * @return {Integer} How many users
    */
@@ -77,6 +85,7 @@ UserStore.dispatchToken = AppDispather.register(function (payload) {
       break;
 
     case ActionTypes.USER_LOGIN:
+      _currentUser = action.initialPayload.user;
       _totalOnline = action.initialPayload.totalOnline;
       _users = action.initialPayload.onlineUsers;
       UserStore.emitChange();

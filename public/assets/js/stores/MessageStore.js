@@ -1,20 +1,16 @@
 var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var ChannelStore = require('../stores/ChannelStore');
 var ChatConstants = require('../constants/ChatConstants');
 var ChatSocketUtils = require('../utils/ChatSocketUtils');
+var UserStore = require('../stores/UserStore');
 
 var _messages = {};
 var ActionTypes = ChatConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
-function _addMessages(messages) {
-  messages.forEach(function(message) {
-    if (!_messages[message.id]) {
-      _messages[message.id] = message;
-    }
-  });
+function addMessage(message) {
+  _messages.push(message);
 }
 
 var MessageStore = assign({}, EventEmitter.prototype, {
@@ -34,49 +30,21 @@ var MessageStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  get: function(id) {
-    return _messages[id];
-  },
-
-  getAll: function() {
+  getAllMessages: function() {
     return _messages;
   },
 
-  /**
-   * @param {string} channelID
-   */
-  getAllForChannel: function(channelID) {
-    var channelMessages = [];
-    for (var id in _messages) {
-      if (_messages[id].channelID === channelID) {
-        channelMessages.push(_messages[id]);
-      }
-    }
-    channelMessages.sort(function(a, b) {
-      if (a.date < b.date) {
-        return -1;
-      } else if (a.date > b.date) {
-        return 1;
-      }
-      return 0;
-    });
-    return channelMessages;
-  },
-
-  getAllForCurrentChannel: function() {
-    return this.getAllForChannel(ChannelStore.getCurrentID());
+  getMessageById: function(id) {
+    return _.find(_messages, {id: id});
   },
 
   getMessageData: function(text) {
     var timestamp = Date.now();
     return {
       id: 'm_' + timestamp,
-      ChannelID: 't_0',
-      // ChannelID: ChannelStore.getCurrentID(),
-      authorName: 'Kenny', // hard coded for the example
+      author: UserStore.getCurrentUser(),
       date: timestamp,
-      text: text,
-      isRead: true
+      text: text
     };
   }
 });
@@ -87,20 +55,16 @@ MessageStore.dispatchToken = AppDispatcher.register(function(payload) {
 
   switch(action.type) {
 
-    case ActionTypes.CLICK_THREAD:
-      AppDispatcher.waitFor([ChannelStore.dispatchToken]);
-      _markAllInThreadRead(ChannelStore.getCurrentID());
-      MessageStore.emitChange();
+    case ActionTypes.CREATE_MESSAGE:
       break;
 
-    // case ActionTypes.CREATE_MESSAGE:
     case ActionTypes.RECEIVE_MESSAGE:
-      _addMessages([action.message]);
+      addMessage(action.message);
       MessageStore.emitChange();
       break;
 
-    case ActionTypes.RECEIVE_ALL_MESSAGES:
-      // _addMessages(action.message);
+   case ActionTypes.USER_LOGIN:
+      _messages = action.initialPayload.messages;
       MessageStore.emitChange();
       break;
 

@@ -73,6 +73,7 @@ var chatApp = function (server) {
 
     // When client emits a chat message.
     socket.on('chat message', function (message) {
+      messages.push(message);
       chat.emit('chat message', message);
     });
   });

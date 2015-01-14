@@ -7,7 +7,7 @@ var MessagesList = React.createClass({
 
     return (
       <li className='message'>
-        <h5 className="message-author-name">{message.authorName}</h5>
+        <h5 className="message-author-name">{message.author.username}</h5>
         <div className="message-time">
           {new Date(message.date).toLocaleTimeString()}
         </div>

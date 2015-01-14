@@ -1,4 +1,5 @@
 var MessageActionCreators = require('../actions/MessageActionCreators');
+var UserStore = require('../stores/UserStore');
 var React = require('react');
 
 var ENTER_KEY_CODE = 13;
@@ -6,7 +7,9 @@ var ENTER_KEY_CODE = 13;
 var MessageComposer = React.createClass({
 
   getInitialState: function() {
-    return {text: ''};
+    return {
+      text: ''
+    };
   },
 
   render: function () {
@@ -22,7 +25,9 @@ var MessageComposer = React.createClass({
   },
 
   _onChange: function (event, value) {
-    this.setState({text: event.target.value});
+    this.setState({
+      text: event.target.value
+    });
   },
 
   _onKeyDown: function (event) {

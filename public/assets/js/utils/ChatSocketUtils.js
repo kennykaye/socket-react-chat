@@ -29,13 +29,11 @@ module.exports = {
     io.emit('add user', userName);
   },
 
-  createMessage: function (message, channelName) {
+  createMessage: function (message, user) {
     var timestamp = Date.now();
     var createdMessage = {
       id: 'm_' + timestamp,
-      channelID: 't_0',
-      channelName: channelName,
-      authorName: message.authorName,
+      author: user,
       date:  timestamp,
       text: message.text
     };

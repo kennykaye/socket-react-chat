@@ -1,5 +1,3 @@
-// TODO: refactor actions into respective actionCreators
-
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
 
@@ -7,17 +5,10 @@ var ActionTypes = ChatConstants.ActionTypes;
 
 module.exports = {
 
-  receiveAllMessages: function (messages) {
-    AppDispatcher.handleServerAction({
-      type: ActionTypes.RECEIVE_ALL_MESSAGES,
-      messages: messages
-    });
-  },
-
-  receiveMessage: function (createdMessage) {
+  receiveMessage: function (message) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.RECEIVE_MESSAGE,
-      message: createdMessage
+      message: message
     });
   },
 

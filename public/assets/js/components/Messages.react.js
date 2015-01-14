@@ -1,15 +1,12 @@
 var React = require('react');
 var ChannelHeader = require('./ChannelHeader.react');
-var ChannelStore = require('../stores/ChannelStore');
 var MessageStore = require('../stores/MessageStore');
 var MessageListItem = require('./MessageListItem.react');
 var MessageComposer = require('./MessageComposer.react');
 
 function getStateFromStores() {
   return {
-    messages: MessageStore.getAllForChannel('t_0'),
-    channel: 't_0'
-    // channel: ChannelStore.getCurrent()
+    messages: MessageStore.getAllMessages()
   };
 }
 
