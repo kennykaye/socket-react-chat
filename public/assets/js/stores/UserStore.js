@@ -11,6 +11,14 @@ var _currentUser,
     _totalOnline = 0,
     _users = [];
 
+function removeUser (user) {
+  _.remove(_users, function (x) { return x.id === user.id });
+}
+
+function addUser (user) {
+  _users.push(user);
+}
+
 var UserStore = assign({}, EventEmitter.prototype, {
 
   emitChange: function() {
@@ -49,8 +57,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
 });
 
 UserStore.dispatchToken = AppDispather.register(function (payload) {
-  var action = payload.action,
-      userPayload = action.userPayload
+  var action = payload.action;
 
   switch(action.type) {
 
@@ -58,10 +65,20 @@ UserStore.dispatchToken = AppDispather.register(function (payload) {
       break;
 
     case ActionTypes.USER_JOIN:
+      _totalOnline++;
+      addUser(action.user);
+      UserStore.emitChange();
+      break;
+
     case ActionTypes.USER_LEAVE:
+      _totalOnline--;
+      removeUser(action.user);
+      UserStore.emitChange();
+      break;
+
     case ActionTypes.USER_LOGIN:
-      _totalOnline = userPayload.totalOnline;
-      _users = userPayload.onlineUsers;
+      _totalOnline = action.initialPayload.totalOnline;
+      _users = action.initialPayload.onlineUsers;
       UserStore.emitChange();
       break;
 

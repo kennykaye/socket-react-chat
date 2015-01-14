@@ -9,18 +9,18 @@ io.on('chat message', function (message) {
 });
 
 // When server emits a login event for current user.
-io.on('user login', function(userPayload) {
-  ServerActionCreators.userLogin(userPayload);
+io.on('user login', function(initialPayload) {
+  ServerActionCreators.userLogin(initialPayload);
 });
 
 // When server emits that another person has joined.
-io.on('user joined', function (userPayload) {
-  ServerActionCreators.userJoined(userPayload);
+io.on('user joined', function (user) {
+  ServerActionCreators.userJoined(user);
 });
 
 // When server emits that another person has left.
-io.on('user left', function (userPayload) {
-  ServerActionCreators.userLeft(userPayload);
+io.on('user left', function (user) {
+  ServerActionCreators.userLeft(user);
 });
 
 module.exports = {

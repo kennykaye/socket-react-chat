@@ -21,24 +21,24 @@ module.exports = {
     });
   },
 
-  userLeft: function (userPayload) {
+  userLeft: function (user) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.USER_LEAVE,
-      userPayload: userPayload
+      user: user
     });
   },
 
-  userLogin: function (userPayload) {
+  userLogin: function (initialPayload) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.USER_LOGIN,
-      userPayload: userPayload
+      initialPayload: initialPayload
     });
   },
 
-  userJoined: function (userPayload) {
+  userJoined: function (user) {
     AppDispatcher.handleServerAction({
       type: ActionTypes.USER_JOIN,
-      userPayload: userPayload
+      user: user
     });
   }
 };

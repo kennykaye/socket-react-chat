@@ -7,16 +7,18 @@ var _ = require('lodash');
 var avatar = require('./avatar');
 
 /**
- * Builds payload which is sent with user events
- * @param  {Object} user       Current user
- * @param  {Array} onlineUsers Collection of all online users
- * @return {Object}            Payload
+ * Builds payload which is sent when a user logs in
+ * @param  {Object} user        Current user
+ * @param  {Array}  onlineUsers Collection of all online users
+ * @return {Object}             Payload
  */
-function getUserPayload (user, onlineUsers) {
+function getInitialPayload (user, onlineUsers, messages) {
   return {
-    user: user,
+    messages: messages,
     onlineUsers: onlineUsers,
-    totalOnline: onlineUsers.length
+    totalMessages: messages.length,
+    totalOnline: onlineUsers.length,
+    user: user
   }
 }
 
@@ -50,29 +52,27 @@ var chatApp = function (server) {
       onlineUsers.push(socket.user);
 
       // Emit total number of users to current user.
-      socket.emit('user login', getUserPayload(socket.user, onlineUsers));
+      socket.emit('user login', getInitialPayload(socket.user, onlineUsers, messages));
 
       // Broadcast to all other users that a user has joined.
-      socket.broadcast.emit('user joined', getUserPayload(socket.user, onlineUsers));
+      socket.broadcast.emit('user joined', socket.user);
     });
 
     // When user disconnects.
     socket.on('disconnect', function () {
-      if(loggedIn) {
-
+      if (loggedIn) {
         // Remove current user from online users array.
         _.remove(onlineUsers, function (user) { 
           return user.id === socket.user.id; 
         });
 
         // Broadcast to other all users that a user has joined.
-        socket.broadcast.emit('user left', getUserPayload(socket.user, onlineUsers));
+        socket.broadcast.emit('user left', socket.user);
       }
     });
 
     // When client emits a chat message.
     socket.on('chat message', function (message) {
-      console.log(message.authorName + ' says: ' + message.text);
       chat.emit('chat message', message);
     });
   });
