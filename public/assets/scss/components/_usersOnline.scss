@@ -1,0 +1,37 @@
+.users-online{
+  position: absolute;
+  top:45px;
+  right:45px;
+  padding:18px 16px;
+  border-radius:4px;
+  color:$lightBlue;
+  background:$darkBlue;
+
+  .indicator{
+    background:$green;
+    margin-right:8px;
+    @include circle(10px);
+  }
+  .count,
+  .indicator,
+  .description{
+    display: inline-block;
+  }
+  .count{
+    margin-right:4px;
+  }
+  .online-user-list{
+    display: none;
+    overflow: hidden;
+    position: absolute;
+    right:0;
+    width:180px;
+
+    .user-list-item{
+      margin-bottom:10px;
+      &:last-child{
+        margin-bottom:0;
+      }
+    }
+  }
+}

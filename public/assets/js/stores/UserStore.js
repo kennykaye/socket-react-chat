@@ -12,7 +12,7 @@ var _currentUser,
     _users = [];
 
 function removeUser (user) {
-  _.remove(_users, function (x) { return x.id === user.id });
+  _.remove(_users, function (x) { return x.id === user.id; });
 }
 
 function addUser (user) {
@@ -37,6 +37,14 @@ var UserStore = assign({}, EventEmitter.prototype, {
    */
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  /**
+   * Check whether user is logged in or not
+   * @return {Boolean}
+   */
+  isLoggedIn: function () {
+    return _currentUser ? true : false;
   },
 
   /**

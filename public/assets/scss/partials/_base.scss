@@ -12,12 +12,14 @@ $green: #90db41;
 $gray: #edeff0;
 $blue: #4bb4e9;
 $smoke: #f7fbfc;
+$lightGray: #b0b7c7;
+$lightBlue: #c2e6f8;
 $darkBlue: #3f98c6;
 $charcoal: #2b2b2b;
 
 // Fonts 
 $gotham: 'Gotham A', 'Gotham B', sans-serif; // 500, 700
-$gothamss: 'Gotham SSm A', 'Gotham SSm B'; // 400i, 500, 700i
+$gothamss: 'Gotham SSm A', 'Gotham SSm B', sans-serif; // 300, 400i, 500, 700i
 
 // Functions
 @function black($opacity){
@@ -30,7 +32,7 @@ $gothamss: 'Gotham SSm A', 'Gotham SSm B'; // 400i, 500, 700i
 // Mixins
 @mixin circle($size){
   @include square($size);
-  @include border-radius($size);
+  border-radius:$size;
 }
 @mixin square($size){
   width:$size;

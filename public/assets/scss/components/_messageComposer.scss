@@ -1,0 +1,48 @@
+.message-composer{
+  position: absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:30px 43px;
+
+  .message-input,
+  .message-send{
+    display: block;
+    float: left;
+    margin:0;
+    height:50px;
+    line-height:50px;
+  }
+
+  .message-input{
+    border:none;
+    outline:none;
+    background:$gray;
+    font-weight:300;
+    padding:0 20px;
+    font-family: $gothamss;
+    width:calc(100% - 165px);
+    border-radius:4px 0 0 4px;
+  }
+
+  .message-send{
+    width:165px;
+    border:none;
+    color:white;
+    outline:none;
+    background:$blue;
+    border-radius:0 4px 4px 0;
+    transition:all 0.05s ease;
+    &:hover{
+      background:$darkBlue;
+    }
+    &:active{
+      line-height:52px;
+      box-shadow:inset 1px 2px 0 0 black(0.4);
+    }
+  }
+
+  @include placeholder {
+    font-weight:300;
+  }
+}

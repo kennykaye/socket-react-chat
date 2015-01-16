@@ -1,0 +1,27 @@
+.user-list-item{
+  display: block;
+  overflow: hidden;
+  padding:5px 0;
+  list-style-type:none;
+
+  img{
+    display: block;
+    height:auto;
+    max-width:100%;
+  }
+  .avatar{
+    float:left;
+    overflow: hidden;
+    margin-top:-5px;
+    @include circle(30px);
+  }
+  .user-name{
+    float:left;
+    color:$charcoal;
+    font-size:14px;
+    font-weight:400;
+    font-family: $gothamss;
+    margin-left:6px;
+    @include ellipsis;
+  }  
+}

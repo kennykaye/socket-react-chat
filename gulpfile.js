@@ -17,14 +17,14 @@ var browserify   = require('browserify');
 var autoprefixer = require('gulp-autoprefixer');
 var transform    = require('vinyl-transform');
 var cmq          = require('gulp-combine-media-queries');
-// var browserSync  = require('browser-sync');
+var browserSync  = require('browser-sync');
 
 // Globs
 var source = {
-      svg: ['public/assets/img/**/*.svg'],
-      sass: ['public/assets/scss/**/*.scss'],
-      images: ['public/assets/img/**/*.+(png|jpg|gif)'],
-      scripts: ['public/assets/js/**/*.js']
+      svg: 'public/assets/img/**/*.svg',
+      sass: 'public/assets/scss/**/*.scss',
+      images: 'public/assets/img/**/*.+(png|jpg|gif)',
+      scripts: 'public/assets/js/**/*.js'
     },
     destination = {
       css: 'public/dist/css',
@@ -33,19 +33,23 @@ var source = {
     };
 
 // Initialize Browser Sync
-// gulp.task('browser-sync', function () {
-//   if(!argv.production) {
-//     browserSync({
-//       port: 3000,
-//       proxy: '127.0.0.1:1337'
-//     });
-//   }
-// });
+gulp.task('browser-sync', function () {
+  var port = '127.0.0.1:1337';
+  if(!argv.production) {
+    browserSync({
+      port: 3003,
+      proxy: port,
+      namespace: function (namespace) {
+        return port + namespace;
+      }
+    });
+  }
+});
 
 // Compile sass
 gulp.task('sass', function () {
   return gulp.src(source.sass)
-    .pipe(cache('sass'))
+    // .pipe(cache('sass'))
       .pipe(sass({
         require: ['susy'],
         errLogToConsole: true
@@ -57,8 +61,8 @@ gulp.task('sass', function () {
       .pipe(cmq({log:true}))
       .pipe(gulpif(argv.production, cssmin()))
       .pipe(gulp.dest(destination.css))
-      // .pipe(gulpif(!argv.production, browserSync.reload({stream:true})))
-    .pipe(remember('sass'));
+      .pipe(gulpif(!argv.production, browserSync.reload({stream:true})));
+    // .pipe(remember('sass'));
 });
 
 // Minify and package images and svg
@@ -66,8 +70,8 @@ gulp.task('images', function () {
   // Minify Images
   gulp.src(source.images)
     .pipe(imgmin({ optimizationLevel: 3, progressive: true, interlaced: true }))
-    .pipe(gulp.dest(destination.images));
-    // .pipe(gulpif(!argv.production, browserSync.reload({stream:true})));
+    .pipe(gulp.dest(destination.images))
+    .pipe(gulpif(!argv.production, browserSync.reload({stream:true})));
   
   // Minify SVG
   gulp.src(source.svg)
@@ -76,8 +80,8 @@ gulp.task('images', function () {
       { removeComments: false },
       { removeHiddenElems: { circleR0: false } }
     ]))
-    .pipe(gulp.dest(destination.images));
-    // .pipe(gulpif(!argv.production, browserSync.reload({ stream:true })));
+    .pipe(gulp.dest(destination.images))
+    .pipe(gulpif(!argv.production, browserSync.reload({ stream:true })));
 });
 
 
@@ -112,6 +116,6 @@ gulp.task('default', [
   'sass',
   'images',
   'scripts',
-  // 'browser-sync',
+  'browser-sync',
   'watch'
 ]);

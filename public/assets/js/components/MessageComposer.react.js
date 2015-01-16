@@ -2,11 +2,21 @@ var MessageActionCreators = require('../actions/MessageActionCreators');
 var UserStore = require('../stores/UserStore');
 var React = require('react');
 
-var ENTER_KEY_CODE = 13;
+/**
+ * Triggers create message action
+ * @param  {String} text Message body to send
+ * @return {Null}
+ */
+function createMessage(text) {
+  var text = text.trim();
+  if (text) {
+    MessageActionCreators.createMessage(text);
+  }
+}
 
 var MessageComposer = React.createClass({
 
-  getInitialState: function() {
+  getInitialState: function () {
     return {
       text: ''
     };
@@ -14,13 +24,20 @@ var MessageComposer = React.createClass({
 
   render: function () {
     return (
-      <textarea
-        className="message-composer"
-        name="message"
-        value={this.state.text}
-        onChange={this._onChange}
-        onKeyDown={this._onKeyDown}
-      />
+      <div className='message-composer'>
+        <textarea
+          name='message'
+          className='message-input'
+          placeholder='Type your message here...'
+          value={this.state.text}
+          onChange={this._onChange}
+          onKeyDown={this._onKeyDown}
+        />
+        <button 
+          className='message-send'
+          onClick={this._onClick}
+        >Send</button>
+      </div>
     );
   },
 
@@ -30,13 +47,16 @@ var MessageComposer = React.createClass({
     });
   },
 
+  _onClick: function (event) {
+    event.preventDefault();
+    createMessage(this.state.text);
+    this.setState({text: ''});
+  },
+
   _onKeyDown: function (event) {
-    if (event.keyCode === ENTER_KEY_CODE) {
+    if (event.keyCode === 13) {
       event.preventDefault();
-      var text = this.state.text.trim();
-      if (text) {
-        MessageActionCreators.createMessage(text);
-      }
+      createMessage(this.state.text);
       this.setState({text: ''});
     }
   }

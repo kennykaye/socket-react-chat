@@ -19,7 +19,7 @@ function getInitialPayload (user, onlineUsers, messages) {
     totalMessages: messages.length,
     totalOnline: onlineUsers.length,
     user: user
-  }
+  };
 }
 
 /**
@@ -31,7 +31,7 @@ var chatApp = function (server) {
   var io = require('socket.io').listen(server);
   var chat = io.of('/chat');
 
-  var loggedIn = false;
+  var loggedIn = false,
       messages = [],
       onlineUsers = [];
 
@@ -61,6 +61,7 @@ var chatApp = function (server) {
     // When user disconnects.
     socket.on('disconnect', function () {
       if (loggedIn) {
+        
         // Remove current user from online users array.
         _.remove(onlineUsers, function (user) { 
           return user.id === socket.user.id; 

@@ -6,11 +6,11 @@ var UserListItem = React.createClass({
     var user = this.props.user;
 
     return (
-      <li className='user'>
-        <div class='avatar'>
+      <li className='user-list-item'>
+        <div className='avatar'>
           <img src={user.avatar} alt={user.username} />
         </div>
-        <h5 className='user-name'>{user.username}</h5>
+        <span className='user-name'>{user.username}</span>
       </li>
     );
   }

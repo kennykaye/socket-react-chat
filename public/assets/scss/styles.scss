@@ -1,2 +1,15 @@
+// Partials
 @import "partials/_base";
+@import "partials/_normalize";
+@import "partials/_typography";
 
+// Components
+@import "components/_app";
+@import "components/_sidebar";
+@import "components/_nickName";
+@import "components/_messages";
+@import "components/_messageListItem";
+@import "components/_messageComposer";
+@import "components/_channelHeader";
+@import "components/_usersOnline";
+@import "components/_userListItem";

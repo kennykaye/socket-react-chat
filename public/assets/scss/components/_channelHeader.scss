@@ -1,0 +1,22 @@
+.channel-header{
+  position: relative;
+  width:100%;
+  height:147px;
+  padding:40px;
+  color:white;
+  background:$blue;
+  
+  .channel-title{
+    margin-top:-5px;
+    margin-bottom:5px;
+    text-shadow:1px 1px 0 black(0.15);
+  }
+  .channel-description{
+    font-size:14px;
+    margin:0;
+    color:$lightBlue;
+  }
+  .hash{
+    color:$lightBlue;
+  }
+}

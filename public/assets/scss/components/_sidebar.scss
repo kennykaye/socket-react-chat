@@ -1,0 +1,30 @@
+.sidebar {
+  position: absolute;
+  height: 100%;
+  width: 300px;
+  top: 0;
+  left: 0;
+  background:$smoke;
+  
+  .user-list-item{
+    height:147px;
+    padding:40px;
+    background:$darkBlue;
+
+    .avatar{
+      margin-top:-1px;
+      box-shadow:0 0 0 3px white(0.2);
+      @include circle(70px);
+    }
+    .user-name{
+      color:white;
+      width:120px;
+      margin:0 0 0 15px;
+      font-family: $gotham;
+      font-size:24px;
+      line-height:63px;
+      font-weight:500;
+      text-shadow:1px 1px 0 black(0.1);
+    }
+  }
+}
