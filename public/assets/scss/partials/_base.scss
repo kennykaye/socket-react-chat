@@ -1,0 +1,87 @@
+ //
+ // Global imports, variables, functions, and mixins
+ //
+ // @package    chat
+ // @author     Kenny Kaye <kenny@kaye.us>
+ // @copyright  2014 Kenny Kaye
+
+// Colors
+$red: #e94b4b;
+$orange: #e9af4b;
+$green: #90db41;
+$gray: #edeff0;
+$blue: #4bb4e9;
+$smoke: #f7fbfc;
+$darkBlue: #3f98c6;
+$charcoal: #2b2b2b;
+
+// Fonts 
+$gotham: 'Gotham A', 'Gotham B', sans-serif; // 500, 700
+$gothamss: 'Gotham SSm A', 'Gotham SSm B'; // 400i, 500, 700i
+
+// Functions
+@function black($opacity){
+  @return rgba(0,0,0,$opacity);
+}
+@function white($opacity){
+  @return rgba(255,255,255,$opacity);
+}
+
+// Mixins
+@mixin circle($size){
+  @include square($size);
+  @include border-radius($size);
+}
+@mixin square($size){
+  width:$size;
+  height:$size;
+}
+@mixin user-select($property){
+  -moz-user-select: $property;
+  -ms-user-select: $property;
+  -webkit-touch-callout: $property;
+  -webkit-user-select: $property;  
+  user-select: $property;
+}
+@mixin hover-underline(){
+  text-decoration:none;
+  &:hover{ text-decoration:underline; }
+}
+@mixin ellipsis(){
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+@mixin center($top:0, $bottom:auto) {
+  display:table;
+
+  @if $bottom == auto {
+    margin:$top auto;
+  } @else {
+    margin:$top auto $bottom auto;
+  }  
+}
+@mixin placeholder(){
+  ::-webkit-input-placeholder{
+    @content;
+  }
+  ::-moz-placeholder{
+    @content;
+  }
+  :-ms-input-placeholder{
+    @content;
+  }
+}
+@mixin antialias() {
+  -webkit-font-smoothing: antialiased!important;
+  -moz-osx-font-smoothing: grayscale!important;
+  font-smoothing: antialiased!important;
+}
+@mixin hide-text() {
+  text-indent: -9999px;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  font-size: 0;
+  text-align: start;
+}
