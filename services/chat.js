@@ -61,10 +61,11 @@ var chatApp = function (server) {
     // When user disconnects.
     socket.on('disconnect', function () {
       if (loggedIn) {
+        var userId = socket.user ? socket.user.id : '';
         
         // Remove current user from online users array.
         _.remove(onlineUsers, function (user) { 
-          return user.id === socket.user.id; 
+          return user.id === userId; 
         });
 
         // Broadcast to other all users that a user has joined.
