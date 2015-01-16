@@ -52,7 +52,9 @@ var Messages = React.createClass({
    * Event handler for 'change' events coming from the MessageStore
    */
   _onChange: function() {
+    var messageList = this.getDOMNode().children[1];
     this.setState(getStateFromStores());
+    messageList.scrollTop = messageList.scrollHeight;
   }
 });
 
