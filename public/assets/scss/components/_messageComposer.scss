@@ -22,7 +22,7 @@
     padding:0 20px;
     font-family: $gothamss;
     width:calc(100% - 165px);
-    border-radius:4px 0 0 4px;
+    border-radius:5px 0 0 5px;
   }
 
   .message-send{
@@ -30,9 +30,12 @@
     border:none;
     color:white;
     outline:none;
+    font-size:17px;
+    font-weight:500; 
     background:$blue;
-    border-radius:0 4px 4px 0;
-    transition:all 0.05s ease;
+    text-transform: uppercase;
+    border-radius:0 5px 5px 0;
+    transition:all 0.04s ease;
     &:hover{
       background:$darkBlue;
     }

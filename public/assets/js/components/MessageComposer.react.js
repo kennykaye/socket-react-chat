@@ -25,7 +25,7 @@ var MessageComposer = React.createClass({
   render: function () {
     return (
       <div className='message-composer'>
-        <textarea
+        <input
           name='message'
           className='message-input'
           placeholder='Type your message here...'

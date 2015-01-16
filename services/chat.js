@@ -44,7 +44,7 @@ var chatApp = function (server) {
       // Add user to socket.
       socket.user = {
         id: 'u_' + Date.now(),
-        avatar: avatar.getAvatar(username),
+        avatar: avatar.getAvatar(username, 140),
         username: username,
       };
 

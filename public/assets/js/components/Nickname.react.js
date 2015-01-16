@@ -28,8 +28,8 @@ var Name = React.createClass({
 
     return (
       <div className={classes}>
-        <h4>Let's Chat!</h4>
         <form>
+        <h1>{"Let's Chat!"}</h1>
           <input
             className="name-input"
             placeholder="Enter a Nickname..."
@@ -61,7 +61,6 @@ var Name = React.createClass({
       if (userName) {
         UserActionCreators.createUser(userName);
       }
-      this.setState({text: ''});
     }
   }
 

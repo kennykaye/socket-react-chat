@@ -41,6 +41,25 @@ var Sidebar = React.createClass({
     return (
       <div className='sidebar'>
         { getUserListItem(this.state.user) }
+        <div className='sidebar-frame'>
+          <div className='channels'>
+            <h4>Channels</h4>
+            <ul className='channel-list'>
+              <li className='channel-list-item'>
+                <span className='hash'>#</span>Programming
+              </li>
+              <li className='channel-list-item current-channel'>
+                <span className='hash'>#</span>Beer-o-Clock
+              </li>
+              <li className='channel-list-item'>
+                <span className='hash'>#</span>Art
+              </li>
+              <li className='channel-list-item'>
+                <span className='hash'>#</span>Eats
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     );
   },

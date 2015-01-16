@@ -6,7 +6,13 @@
   left: 0;
   background:$smoke;
   
+  .sidebar-frame{
+    position: relative;
+    padding:40px;
+  }
+
   .user-list-item{
+    position:relative;
     height:147px;
     padding:40px;
     background:$darkBlue;
@@ -26,5 +32,25 @@
       font-weight:500;
       text-shadow:1px 1px 0 black(0.1);
     }
+  }
+
+  .channels{
+    margin-top:30px;
+  }
+  .channel-list{
+    padding-left:0;
+  }
+  .channel-list-item{
+    cursor:pointer;
+    font-size: 18px;
+    font-weight: 700;
+    padding:18px 10px;
+    margin-left:-10px;
+    border-radius:5px;
+    list-style-type: none;
+  }
+  .current-channel{
+    color:white;
+    background:$blue;
   }
 }

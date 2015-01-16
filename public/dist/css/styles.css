@@ -439,6 +439,11 @@ h1 {
 	font-weight: 500;
 }
 
+h4 {
+	color: #4bb4e9;
+	text-transform: uppercase;
+}
+
 .chatApp {
 	position: absolute;
 	width: 100%;
@@ -454,7 +459,13 @@ h1 {
 	background: #f7fbfc;
 }
 
+.sidebar .sidebar-frame {
+	position: relative;
+	padding: 40px;
+}
+
 .sidebar .user-list-item {
+	position: relative;
 	height: 147px;
 	padding: 40px;
 	background: #3f98c6;
@@ -479,16 +490,94 @@ h1 {
 	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
+.sidebar .channels {
+	margin-top: 30px;
+}
+
+.sidebar .channel-list {
+	padding-left: 0;
+}
+
+.sidebar .channel-list-item {
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: 700;
+	padding: 18px 10px;
+	margin-left: -10px;
+	border-radius: 5px;
+	list-style-type: none;
+}
+
+.sidebar .current-channel {
+	color: white;
+	background: #4bb4e9;
+}
+
 .nick-name {
 	z-index: 10;
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	background: #4bb4e9;
+	text-align: center;
+	opacity: 1;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	opacity: 1;
+	transition: all 0.2s ease-in;
 }
 
 .nick-name.logged-in {
-	display: none;
+	z-index: -1;
+	opacity: 0;
+}
+
+.nick-name h1 {
+	color: white;
+	margin-top: 0;
+}
+
+.nick-name form {
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.nick-name .name-input {
+	outline: none;
+	background: none;
+	border: none;
+	color: white;
+	padding: 10px 0;
+	font-size: 20px;
+	font-weight: 400;
+	text-align: center;
+	font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
+	border-bottom: 1px solid #c2e6f8;
+	transition: all 0.2s ease;
+}
+
+.nick-name .name-input:focus {
+	border-color: white;
+}
+
+.nick-name ::-webkit-input-placeholder {
+	color: #c2e6f8;
+}
+
+.nick-name ::-moz-placeholder {
+	color: #c2e6f8;
+}
+
+.nick-name :-ms-input-placeholder {
+	color: #c2e6f8;
 }
 
 .messages {
@@ -514,6 +603,10 @@ h1 {
 	padding-left: 68px;
 	font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
 	list-style-type: none;
+}
+
+.message-list-item:last-child {
+	margin-bottom: 0;
 }
 
 .message-list-item img {
@@ -582,7 +675,7 @@ h1 {
 	padding: 0 20px;
 	font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
 	width: calc(100% - 165px);
-	border-radius: 4px 0 0 4px;
+	border-radius: 5px 0 0 5px;
 }
 
 .message-composer .message-send {
@@ -590,9 +683,12 @@ h1 {
 	border: none;
 	color: white;
 	outline: none;
+	font-size: 17px;
+	font-weight: 500;
 	background: #4bb4e9;
-	border-radius: 0 4px 4px 0;
-	transition: all 0.05s ease;
+	text-transform: uppercase;
+	border-radius: 0 5px 5px 0;
+	transition: all 0.04s ease;
 }
 
 .message-composer .message-send:hover {
@@ -646,7 +742,7 @@ h1 {
 	top: 45px;
 	right: 45px;
 	padding: 18px 16px;
-	border-radius: 4px;
+	border-radius: 5px;
 	color: #c2e6f8;
 	background: #3f98c6;
 }
@@ -669,12 +765,57 @@ h1 {
 	margin-right: 4px;
 }
 
+.users-online:hover .online-user-list {
+	z-index: 1;
+	opacity: 1;
+	-webkit-transform: translateY(0);
+	-ms-transform: translateY(0);
+	transform: translateY(0);
+}
+
 .users-online .online-user-list {
-	display: none;
-	overflow: hidden;
+	z-index: -1;
 	position: absolute;
 	right: 0;
+	top: 50px;
 	width: 180px;
+	padding: 10px 15px;
+	opacity: 0;
+	background: white;
+	border-radius: 4px;
+	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+	-webkit-transform: translateY(-20px);
+	-ms-transform: translateY(-20px);
+	transform: translateY(-20px);
+	transition: all 0.2s 0.2s ease;
+}
+
+.users-online .online-user-list .arrow:after,
+.users-online .online-user-list .arrow:before {
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border: solid rgba(255, 255, 255, 0);
+}
+
+.users-online .online-user-list .arrow:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-width: 7px;
+	top: -14px;
+	border-bottom-color: white;
+	right: 0;
+	margin-right: 11px;
+}
+
+.users-online .online-user-list .arrow:before {
+	border-color: rgba(255, 255, 255, 0);
+	border-width: 8px;
+	top: -16px;
+	border-bottom-color: none;
+	right: 0;
+	margin-right: 10px;
 }
 
 .users-online .online-user-list .user-list-item {
@@ -683,6 +824,10 @@ h1 {
 
 .users-online .online-user-list .user-list-item:last-child {
 	margin-bottom: 0;
+}
+
+.users-online .online-user-list .user-name {
+	font-weight: 700;
 }
 
 .user-list-item {

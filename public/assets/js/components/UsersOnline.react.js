@@ -47,6 +47,7 @@ var UsersOnline = React.createClass({
         <span className='count'>{this.state.count}</span>
         <span className='description'>{this.state.count === 1 ? 'user' : 'users'} online</span>
         <ul className='online-user-list'>
+          <span className='arrow'></span>
           {userListItems}
         </ul>
       </div>
