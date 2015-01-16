@@ -12,7 +12,7 @@
   .avatar{
     float:left;
     overflow: hidden;
-    margin-top:-5px;
+    margin-top:-3px;
     @include circle(30px);
   }
   .user-name{

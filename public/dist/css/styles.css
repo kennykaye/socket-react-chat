@@ -502,8 +502,9 @@ h4 {
 	cursor: pointer;
 	font-size: 18px;
 	font-weight: 700;
-	padding: 18px 10px;
-	margin-left: -10px;
+	padding: 18px 20px;
+	margin-left: -20px;
+	margin-right: -20px;
 	border-radius: 5px;
 	list-style-type: none;
 }
@@ -593,13 +594,13 @@ h4 {
 	right: 0;
 	left: 0;
 	padding-left: 30px;
-	height: calc(100% - 300px);
+	height: calc(100% - 280px);
 	overflow-y: scroll;
 }
 
 .message-list-item {
 	position: relative;
-	margin: 40px 0;
+	margin: 35px 0;
 	padding-left: 68px;
 	font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
 	list-style-type: none;
@@ -828,6 +829,7 @@ h4 {
 
 .users-online .online-user-list .user-name {
 	font-weight: 700;
+	line-height: 20px;
 }
 
 .user-list-item {
@@ -846,7 +848,7 @@ h4 {
 .user-list-item .avatar {
 	float: left;
 	overflow: hidden;
-	margin-top: -5px;
+	margin-top: -3px;
 	width: 30px;
 	height: 30px;
 	border-radius: 30px;
