@@ -34,7 +34,7 @@ var source = {
 
 // Initialize Browser Sync
 gulp.task('browser-sync', function () {
-  var port = '127.0.0.1:1337';
+  var port = '127.0.0.1:8080';
   if(!argv.production) {
     browserSync({
       port: 3003,
@@ -72,7 +72,7 @@ gulp.task('images', function () {
     .pipe(imgmin({ optimizationLevel: 3, progressive: true, interlaced: true }))
     .pipe(gulp.dest(destination.images))
     .pipe(gulpif(!argv.production, browserSync.reload({stream:true})));
-  
+
   // Minify SVG
   gulp.src(source.svg)
     .pipe(svgmin([
@@ -94,7 +94,7 @@ gulp.task('scripts', function () {
     });
     return b.bundle();
   });
-  return gulp.src(['./public/assets/js/app.js']) 
+  return gulp.src(['./public/assets/js/app.js'])
     .pipe(browserified)
     .pipe(gulpif(argv.production, uglify()))
     .pipe(rename({ suffix: '.min', extname: '.js' }))

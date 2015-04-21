@@ -26,6 +26,6 @@ app.get('/', function (req, res) {
 require('./services/chat')(server);
 
 // Listen on port
-server.listen('1337', function () {
-  console.log('Server Connected at http://127.0.0.1:1337');
+server.listen('80', function () {
+  console.log('Server Connected at http://127.0.0.1:80');
 });
